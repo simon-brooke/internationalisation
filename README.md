@@ -18,7 +18,7 @@ There is only one function you should need to use:
 
     (get-messages accept-language-header resource-path default-locale)
 
-Return the most acceptable messages collection we have given this accept-language-header. Do not use this function directly, use the memoized variant get-messages, as performance will be very much better.
+Return the most acceptable messages collection we have given this accept-language-header. Use this function instrad of the unmemoized variant raw-get-messages, as performance will be very much better.
 
 * `accept-language-header` should be the value of an RFC 2616 Accept-Language header;
 * `resource-path` should be the fully-qualified path name of the directory in which message files are stored;
