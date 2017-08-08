@@ -3,7 +3,8 @@
   scot.weft.i18n.core
   (:require [clojure.string :as cs]
             [clojure.java.io :as io]
-            [instaparse.core :as insta]))
+            [instaparse.core :as insta]
+            [taoensso.timbre :as timbre]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;
@@ -132,16 +133,18 @@
 
   Returns a map of message keys to strings."
   [accept-language-header resource-path default-locale]
-  (read-string
-    (slurp
-      (or
-        (first
-          (remove
-            nil?
-            (map
-              #(find-language-file-name % resource-path)
-              (acceptable-languages accept-language-header))))
-        (str resource-path default-locale ".edn")))))
+  (let [file-path (first
+                    (remove
+                      nil?
+                      (map
+                        #(find-language-file-name % resource-path)
+                        (acceptable-languages accept-language-header))))]
+    (timbre/debug (str "Found i18n file at '" file-path "'"))
+    (read-string
+      (slurp
+        (or
+          file-path
+          (str resource-path default-locale ".edn"))))))
 
 
 (def get-messages
