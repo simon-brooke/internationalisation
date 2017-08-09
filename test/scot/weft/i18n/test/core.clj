@@ -1,7 +1,7 @@
 (ns ^{:doc "Tests for Internationalisation."
       :author "Simon Brooke"} scot.weft.i18n.test.core
-  (:use clojure.test
-        scot.weft.i18n.core))
+  (:require [clojure.test :refer :all]
+            [scot.weft.i18n.core :refer :all]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;

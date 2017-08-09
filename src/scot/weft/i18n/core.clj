@@ -136,7 +136,7 @@
 
   Returns a map of message keys to strings."
   {:doc/format :markdown}
-  [accept-language-header resource-path default-locale]
+  [^String accept-language-header ^String resource-path ^String default-locale]
   (let [file-path (first
                     (remove
                       nil?
