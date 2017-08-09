@@ -1,4 +1,4 @@
-(defproject org.clojars.simon_brooke/internationalisation "1.0.0"
+(defproject org.clojars.simon_brooke/internationalisation "1.0.1"
   :description "Internationalisation library for Clojure"
   :url "https://github.com/simon-brooke/internationalisation"
   :license {:name "Eclipse Public License"
