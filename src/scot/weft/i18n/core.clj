@@ -1,8 +1,7 @@
 (ns ^{:doc "Internationalisation."
       :author "Simon Brooke"}
   scot.weft.i18n.core
-  (:require [clojure.string :as cs]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [instaparse.core :as insta]
             [taoensso.timbre :as timbre]))
 
