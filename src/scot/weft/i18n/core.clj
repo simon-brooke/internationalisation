@@ -148,7 +148,10 @@
       (slurp
         (or
           file-path
-          (str resource-path default-locale ".edn"))))))
+          (.getAbsolutePath
+            (io/file
+              resource-path
+              (str default-locale ".edn"))))))))
 
 
 (def get-messages
