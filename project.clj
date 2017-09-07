@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [com.taoensso/timbre "4.10.0"]
                  [instaparse "1.4.7"]]
-  :plugins [[lein-codox "0.10.3"]])
+  :plugins [[lein-codox "0.10.3"]]
+  :lein-release {:deploy-via :clojars})

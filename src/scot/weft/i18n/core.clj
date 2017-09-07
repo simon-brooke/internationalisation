@@ -166,7 +166,7 @@
   `default-locale` should be a locale specifier to use if no acceptable locale can be
   identified.
 
-  Returns a map of message keys to strings."
+  Returns a map of message keys to strings.; if no useable file is found, returns nil."
   (memoize raw-get-messages))
 
 
