@@ -1,8 +1,7 @@
 (ns ^{:doc "Internationalisation."
       :author "Simon Brooke"}
   scot.weft.i18n.core
-  (:require [clojure.string :as cs]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [instaparse.core :as insta]
             [taoensso.timbre :as timbre]))
 
@@ -134,9 +133,9 @@
   * `default-locale` should be a locale specifier to use if no acceptable locale can be
   identified.
 
-  Returns a map of message keys to strings."
+  Returns a map of message keys to strings; if no useable file is found, returns nil."
   {:doc/format :markdown}
-  [accept-language-header resource-path default-locale]
+  [^String accept-language-header ^String resource-path ^String default-locale]
   (let [file-path (first
                     (remove
                       nil?
@@ -144,14 +143,18 @@
                         #(find-language-file-name % resource-path)
                         (acceptable-languages accept-language-header))))]
     (timbre/debug (str "Found i18n file at '" file-path "'"))
-    (read-string
-      (slurp
-        (or
-          file-path
-          (.getAbsolutePath
-            (io/file
-              resource-path
-              (str default-locale ".edn"))))))))
+    (try
+      (read-string
+        (slurp
+          (or
+            file-path
+            (.getAbsolutePath
+              (io/file
+                resource-path
+                (str default-locale ".edn"))))))
+      (catch Exception any
+        (timbre/error (str "Failed to load internationalisation because " (.getMessage any)))
+        nil))))
 
 
 (def get-messages
