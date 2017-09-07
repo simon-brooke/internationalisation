@@ -203,4 +203,7 @@
     (is
       (=
         "Ceci n'est pas une pipe."
-        (:pipe (get-messages "en-GB;q=0.9, fr-FR" "resources/i18n" "en-GB"))))))
+        (:pipe (get-messages "en-GB;q=0.9, fr-FR" "resources/i18n" "en-GB"))))
+    (is
+      (= nil (get-messages "xx-XX;q=0.5, yy-YY" "resources/i18n" "zz-ZZ"))
+      "If no usable file is found, an exception should not be thrown.")))
