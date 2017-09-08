@@ -1,4 +1,4 @@
-(defproject org.clojars.simon_brooke/internationalisation "1.0.1"
+(defproject org.clojars.simon_brooke/internationalisation "1.0.2"
   :description "Internationalisation library for Clojure"
   :url "https://github.com/simon-brooke/internationalisation"
   :license {:name "Eclipse Public License"
@@ -7,4 +7,6 @@
                  [com.taoensso/timbre "4.10.0"]
                  [instaparse "1.4.7"]]
   :plugins [[lein-codox "0.10.3"]]
-  :lein-release {:deploy-via :clojars})
+  :profiles {:dev {:resource-paths ["resources"]}}
+  :lein-release {:deploy-via :clojars}
+  )
