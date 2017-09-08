@@ -160,13 +160,12 @@
                         (acceptable-languages accept-language-header))))]
     (timbre/debug (str "Found i18n file at '" file-path "'"))
     (try
-      (read-string
-        (slurp-resource
-          (or
-            file-path
-            (join java.io.File/separator
-                  [resource-path
-                   (str default-locale ".edn")]))))
+      (slurp-resource
+        (or
+          file-path
+          (join java.io.File/separator
+                [resource-path
+                 (str default-locale ".edn")])))
       (catch Exception any
         (timbre/error (str "Failed to load internationalisation because " (.getMessage any)))
         nil))))
