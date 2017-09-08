@@ -1,4 +1,4 @@
-(defproject org.clojars.simon_brooke/internationalisation "1.0.2"
+(defproject org.clojars.simon_brooke/internationalisation "1.0.3"
   :description "Internationalisation library for Clojure"
   :url "https://github.com/simon-brooke/internationalisation"
   :license {:name "Eclipse Public License"
@@ -9,4 +9,5 @@
   :plugins [[lein-codox "0.10.3"]]
   :profiles {:dev {:resource-paths ["resources"]}}
   :lein-release {:deploy-via :clojars}
+  :signing {:gpg-key "Simon Brooke (Stultus in monte) <simon@journeyman.cc>"}
   )
