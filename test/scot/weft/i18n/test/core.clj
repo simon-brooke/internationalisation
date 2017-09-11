@@ -181,7 +181,11 @@
           [:SPECIFIERS
            [:SPECIFIER [:LANGUAGE-TAG [:PRIMARY-TAG "fr"]]]]]]
         (parse-accept-language-header "en, fr"))
-      "Space after comma should be tolerated.")))
+      "Space after comma should be tolerated.")
+    (is (vector? (parse-accept-language-header "en, fr"))
+        "If the header is valid, we should get a (parse tree) vector")
+    (is (not (vector? (parse-accept-language-header "")))
+        "If the header is invalid, we should get a failure object not a vector")))
 
 
 (deftest test-ordering

@@ -82,7 +82,8 @@
       :Q-VALUE (read-string (second parse-tree))
       ;; default
       (let [formatted-tree (with-out-str (pprint parse-tree))]
-        (throw (Exception. (str "Unexpected parse tree: " formatted-tree)))))))
+        (timbre/error "Unable to parse header.")
+        nil))))
 
 
 (defn acceptable-languages
@@ -94,11 +95,14 @@
   of preference."
   {:doc/format :markdown}
   [accept-language-header]
-  (reverse
-    (sort-by
-      :preference
-      (generate-accept-languages
-        (parse-accept-language-header accept-language-header)))))
+  (let [parse-tree (parse-accept-language-header accept-language-header)]
+    (if (vector? parse-tree)
+      (reverse
+        (sort-by
+          :preference
+          (generate-accept-languages
+            parse-tree)))
+      (timbre/error "Failed to parse Accept-Language header '" accept-language-header "':\n" (str parse-tree)))))
 
 
 (defn slurp-resource
