@@ -2,6 +2,7 @@
       :author "Simon Brooke"}
   scot.weft.i18n.core
   (:require [clojure.java.io :as io]
+            [clojure.pprint :refer [pprint]]
             [clojure.string :refer [join]]
             [instaparse.core :as insta]
             [taoensso.timbre :as timbre]))
@@ -78,7 +79,10 @@
                   (generate-accept-languages (second parse-tree)))
       :SUB-TAG (second parse-tree)
       :Q-SEP nil
-      :Q-VALUE (read-string (second parse-tree)))))
+      :Q-VALUE (read-string (second parse-tree))
+      ;; default
+      (let [formatted-tree (with-out-str (pprint parse-tree))]
+        (throw (Exception. (str "Unexpected parse tree: " formatted-tree)))))))
 
 
 (defn acceptable-languages
