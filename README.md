@@ -6,27 +6,91 @@ A Clojure library designed to provide simple interationalisation of user-facing 
 
 To use this library in your project, add the following leiningen dependency:
 
-    [org.clojars.simon_brooke/internationalisation "1.0.0"]
+    [org.clojars.simon_brooke/internationalisation "1.0.4"]
 
 To use it in your namespace, require:
 
-    [scot.weft.i18n.core :refer [get-messages]]
+    [scot.weft.i18n.core :refer [get-message get-messages]]
 
-There is only one function you should need to use:
+There is only two functions you may need to use:
 
 ### get-messages
 
-    (get-messages accept-language-header resource-path default-locale)
+```clojure
+(get-messages accept-language-header resource-path default-locale)
+```
+Return the most acceptable messages collection we have given this `accept-language-header`.
 
-Return the most acceptable messages collection we have given this accept-language-header. Use this function instrad of the unmemoized variant raw-get-messages, as performance will be very much better.
+* `accept-language-header` should be a string representing the value of an RFC 2616 Accept-Language header;
+* `resource-path` should be a string representing the fully-qualified path name of the directory in which message files are stored;
+* `default-locale` should be a string representing a locale specifier to use if no acceptable locale can be identified.
 
-* `accept-language-header` should be the value of an RFC 2616 Accept-Language header;
-* `resource-path` should be the fully-qualified path name of the directory in which message files are stored;
-* `default-locale` should be a locale specifier to use if no acceptable locale can be identified.
+For example:
+```clojure
+(get-messages "en-GB;q=0.9, fr-FR" "i18n" "en-GB")
+```
 
 Returns a map of message keys to strings.
 
 See [RFC 2616](https://www.ietf.org/rfc/rfc2616.txt).
+
+**NOTE THAT** `get-messages` is [memoized](https://clojuredocs.org/clojure.core/memoize) resulting in faster response when called repeatedly with similar arguments.
+
+### get-message
+
+A wrapper around `get-messages` to resolve a single, particular message. 
+```clojure
+(get-message token)
+
+(get-message token accept-language-header)
+
+(get-message token accept-language-header resource-path default-locale)
+```
+
+where
+
+* `token` is the Clojure [keyword](https://clojuredocs.org/clojure.core/keyword) which identifies the particular message you want to retrieve;
+
+and all the other arguments are as defined above.
+
+For example:
+```clojure
+(get-message :pipe)
+
+(get-message :pipe "en-GB;q=0.9, fr-FR")
+
+(get-message :pipe "de-DE" "i18n" "ru")
+```
+
+So how does this work? When one calls `(get-message token accept-language-header)`, how does it know where to find resources? The answer is that there are two dynamic variables:
+
+* `*resource-path*`, the default path within the resources space on which 
+   translation files will be sought. Initialised to `i18n`.
+* `*default-language*`, the language tag for the language to use when no
+   otherwise suitable language can be identified. Initialised to the default
+   language of the runtime session, so this may well be different on your 
+   machine from someone elses running identical software.
+
+Thus
+```clojure
+(binding [*resource-path* "language-files"
+          *default-language* "en-CA"]
+    (get-message :pipe "en-GB;q=0.9, fr-FR")
+)
+```
+and
+```clojure
+(get-message :pipe "en-GB;q=0.9, fr-FR" "language-files" "en-CA")
+```
+are effectively the same.
+
+The intelligent reader will note that if one calls
+```clojure
+(get-message :pipe)
+```
+there's no mechanism to set the `accept-header`. This is true. The expected use case for this arity of the function is in desktop applications where the locale of the local machine will always be the correct locale to use. The two-argument arity of the function is intended for web applications, where different clients may have different linguistic needs.
+
+**NOTE THAT** `get-message` is also memoized, and for the same reason.
 
 ## The translation files
 
