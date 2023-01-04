@@ -6,7 +6,7 @@ A Clojure library designed to provide simple interationalisation of user-facing 
 
 To use this library in your project, add the following leiningen dependency:
 
-    [org.clojars.simon_brooke/internationalisation "1.0.3"]
+    [org.clojars.simon_brooke/internationalisation "1.0.4"]
 
 To use it in your namespace, require:
 
