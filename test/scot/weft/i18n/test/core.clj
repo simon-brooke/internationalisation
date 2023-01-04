@@ -220,4 +220,5 @@
       (is
        (=
         "Ceci n'est pas une pipe." (get-message :pipe "en-GB;q=0.9, fr-FR")))
-      (is (= "это не труба." (get-message :pipe "de-DE" "i18n" "ru"))))))
+      (is (= "это не труба." (get-message :pipe "de-DE" "i18n" "ru")))
+      (is (= "froboz" (get-message :froboz))))))
