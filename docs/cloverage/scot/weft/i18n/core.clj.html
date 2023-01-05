@@ -77,7 +77,7 @@
                 024&nbsp;&nbsp;&nbsp;&nbsp;&quot;The&nbsp;default&nbsp;path&nbsp;within&nbsp;the&nbsp;resources&nbsp;space&nbsp;on&nbsp;which&nbsp;translation&nbsp;files&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;sought.&quot;
+                025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;sought.&nbsp;Deprecated,&nbsp;prefer&nbsp;`(:resource-path&nbsp;*config*)`.&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
                 026&nbsp;&nbsp;&nbsp;&nbsp;&quot;i18n&quot;)
@@ -89,7 +89,7 @@
                 028&nbsp;&nbsp;(def&nbsp;^:dynamic&nbsp;*default-language*
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                029&nbsp;&nbsp;&nbsp;&nbsp;&quot;The&nbsp;default&nbsp;language&nbsp;to&nbsp;seek.&quot;
+                029&nbsp;&nbsp;&nbsp;&nbsp;&quot;The&nbsp;default&nbsp;language&nbsp;to&nbsp;seek.&nbsp;Deprecated,&nbsp;prefer&nbsp;`(:default-language&nbsp;*config*)`.&quot;
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
                 030&nbsp;&nbsp;&nbsp;&nbsp;(-&gt;&nbsp;(locale&#x2F;get-default)&nbsp;locale&#x2F;to-language-tag))
@@ -97,560 +97,617 @@
 <span class="blank" title="0 out of 0 forms covered">
                 031&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                032&nbsp;&nbsp;(def&nbsp;accept-language-grammar
+<span class="covered" title="1 out of 1 forms covered">
+                032&nbsp;&nbsp;(def&nbsp;^:dynamic&nbsp;*config*
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                033&nbsp;&nbsp;&nbsp;&nbsp;&quot;Grammar&nbsp;for&nbsp;`Accept-Language`&nbsp;headers&quot;
+                033&nbsp;&nbsp;&nbsp;&nbsp;&quot;Extensible&nbsp;configuration&nbsp;for&nbsp;i18n.&quot;
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                034&nbsp;&nbsp;&nbsp;&nbsp;{:default-language&nbsp;(-&gt;&nbsp;(locale&#x2F;get-default)&nbsp;locale&#x2F;to-language-tag)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                034&nbsp;&nbsp;&nbsp;&nbsp;&quot;HEADER&nbsp;:=&nbsp;SPECIFIER&nbsp;|&nbsp;SPECIFIERS;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                035&nbsp;&nbsp;&nbsp;&nbsp;SPECIFIERS:=&nbsp;SPECIFIER&nbsp;|&nbsp;SPECIFIER&nbsp;SPEC-SEP&nbsp;SPECIFIERS;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                036&nbsp;&nbsp;&nbsp;&nbsp;SPEC-SEP&nbsp;:=&nbsp;#&#x27;,\\s*&#x27;;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                037&nbsp;&nbsp;&nbsp;&nbsp;SPECIFIER&nbsp;:=&nbsp;LANGUAGE-TAG&nbsp;|&nbsp;LANGUAGE-TAG&nbsp;Q-SEP&nbsp;Q-VALUE;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                038&nbsp;&nbsp;&nbsp;&nbsp;LANGUAGE-TAG&nbsp;:=&nbsp;PRIMARY-TAG&nbsp;|&nbsp;PRIMARY-TAG&nbsp;&#x27;-&#x27;&nbsp;SUB-TAGS;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                039&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY-TAG&nbsp;:=&nbsp;#&#x27;[a-zA-Z]+&#x27;;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                040&nbsp;&nbsp;&nbsp;&nbsp;SUB-TAGS&nbsp;:=&nbsp;SUB-TAG&nbsp;|&nbsp;SUB-TAG&nbsp;&#x27;-&#x27;&nbsp;SUB-TAGS;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                041&nbsp;&nbsp;&nbsp;&nbsp;SUB-TAG&nbsp;:=&nbsp;#&#x27;[a-zA-Z0-9]+&#x27;;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                042&nbsp;&nbsp;&nbsp;&nbsp;Q-SEP&nbsp;:=&nbsp;#&#x27;;\\s*q=&#x27;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                043&nbsp;&nbsp;&nbsp;&nbsp;Q-VALUE&nbsp;:=&nbsp;&#x27;1&#x27;&nbsp;|&nbsp;#&#x27;0.[0-9]+&#x27;;&quot;)
+                035&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:resource-path&nbsp;&quot;i18n&quot;})
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                044&nbsp;&nbsp;
+                036&nbsp;&nbsp;
                 </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                045&nbsp;&nbsp;(def&nbsp;parse-accept-language-header
+<span class="covered" title="2 out of 2 forms covered">
+                037&nbsp;&nbsp;(def&nbsp;accept-language-grammar
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                046&nbsp;&nbsp;&nbsp;&nbsp;&quot;Parse&nbsp;an&nbsp;`Accept-Language`&nbsp;header&quot;
+                038&nbsp;&nbsp;&nbsp;&nbsp;&quot;Grammar&nbsp;for&nbsp;`Accept-Language`&nbsp;headers&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                039&nbsp;&nbsp;&nbsp;&nbsp;&quot;HEADER&nbsp;:=&nbsp;SPECIFIER&nbsp;|&nbsp;SPECIFIERS;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                040&nbsp;&nbsp;&nbsp;&nbsp;SPECIFIERS:=&nbsp;SPECIFIER&nbsp;|&nbsp;SPECIFIER&nbsp;SPEC-SEP&nbsp;SPECIFIERS;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                041&nbsp;&nbsp;&nbsp;&nbsp;SPEC-SEP&nbsp;:=&nbsp;#&#x27;,\\s*&#x27;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                042&nbsp;&nbsp;&nbsp;&nbsp;SPECIFIER&nbsp;:=&nbsp;LANGUAGE-TAG&nbsp;|&nbsp;LANGUAGE-TAG&nbsp;Q-SEP&nbsp;Q-VALUE;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                043&nbsp;&nbsp;&nbsp;&nbsp;LANGUAGE-TAG&nbsp;:=&nbsp;PRIMARY-TAG&nbsp;|&nbsp;PRIMARY-TAG&nbsp;&#x27;-&#x27;&nbsp;SUB-TAGS;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                044&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY-TAG&nbsp;:=&nbsp;#&#x27;[a-zA-Z]+&#x27;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                045&nbsp;&nbsp;&nbsp;&nbsp;SUB-TAGS&nbsp;:=&nbsp;SUB-TAG&nbsp;|&nbsp;SUB-TAG&nbsp;&#x27;-&#x27;&nbsp;SUB-TAGS;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                046&nbsp;&nbsp;&nbsp;&nbsp;SUB-TAG&nbsp;:=&nbsp;#&#x27;[a-zA-Z0-9]+&#x27;;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                047&nbsp;&nbsp;&nbsp;&nbsp;Q-SEP&nbsp;:=&nbsp;#&#x27;;\\s*q=&#x27;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                048&nbsp;&nbsp;&nbsp;&nbsp;Q-VALUE&nbsp;:=&nbsp;&#x27;1&#x27;&nbsp;|&nbsp;#&#x27;0.[0-9]+&#x27;;&quot;)
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                049&nbsp;&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                050&nbsp;&nbsp;(def&nbsp;parse-accept-language-header
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                051&nbsp;&nbsp;&nbsp;&nbsp;&quot;Parse&nbsp;an&nbsp;`Accept-Language`&nbsp;header&quot;
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                047&nbsp;&nbsp;&nbsp;&nbsp;(insta&#x2F;parser&nbsp;accept-language-grammar))
+                052&nbsp;&nbsp;&nbsp;&nbsp;(insta&#x2F;parser&nbsp;accept-language-grammar))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                048&nbsp;&nbsp;
+                053&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                049&nbsp;&nbsp;(defn&nbsp;generate-accept-languages
+                054&nbsp;&nbsp;(defn&nbsp;generate-accept-languages
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                050&nbsp;&nbsp;&nbsp;&nbsp;&quot;From&nbsp;a&nbsp;`parse-tree`&nbsp;generated&nbsp;by&nbsp;the&nbsp;`language-specifier-grammar`,&nbsp;generate
+                055&nbsp;&nbsp;&nbsp;&nbsp;&quot;From&nbsp;a&nbsp;`parse-tree`&nbsp;generated&nbsp;by&nbsp;the&nbsp;`language-specifier-grammar`,&nbsp;generate
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                051&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;maps&nbsp;each&nbsp;having&nbsp;a&nbsp;`:language`&nbsp;key,&nbsp;a&nbsp;`:preference`&nbsp;key&nbsp;and&nbsp;a
+                056&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;maps&nbsp;each&nbsp;having&nbsp;a&nbsp;`:language`&nbsp;key,&nbsp;a&nbsp;`:preference`&nbsp;key&nbsp;and&nbsp;a
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                052&nbsp;&nbsp;&nbsp;&nbsp;`:qualifier`&nbsp;key.&quot;
+                057&nbsp;&nbsp;&nbsp;&nbsp;`:qualifier`&nbsp;key.&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                053&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
+                058&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                054&nbsp;&nbsp;&nbsp;&nbsp;[parse-tree]
+                059&nbsp;&nbsp;&nbsp;&nbsp;[parse-tree]
                 </span><br/>
 <span class="partial" title="1 out of 2 forms covered">
-                055&nbsp;&nbsp;&nbsp;&nbsp;(if
+                060&nbsp;&nbsp;&nbsp;&nbsp;(if
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(nil?&nbsp;parse-tree)
+                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(nil?&nbsp;parse-tree)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                057&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil
+                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil
                 </span><br/>
 <span class="partial" title="2 out of 4 forms covered">
-                058&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(case
+                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(case
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                059&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(first&nbsp;parse-tree)
+                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(first&nbsp;parse-tree)
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                060&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:HEADER&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
+                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:HEADER&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                061&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SPECIFIERS&nbsp;(cons
+                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SPECIFIERS&nbsp;(cons
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                062&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
+                067&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
                 </span><br/>
 <span class="covered" title="6 out of 6 forms covered">
-                063&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
+                068&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(when&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                064&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3))))
+                069&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3))))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                065&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SPEC-SEP&nbsp;nil
+                070&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SPEC-SEP&nbsp;nil
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SPECIFIER&nbsp;(assoc
+                071&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SPECIFIER&nbsp;(assoc
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                067&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
+                072&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                068&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:preference
+                073&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:preference
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                069&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if
+                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                070&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
+                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                071&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3))
+                076&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                072&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1))
+                077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1))
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                073&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:LANGUAGE-TAG&nbsp;(if
+                078&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:LANGUAGE-TAG&nbsp;(if
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                074&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
+                079&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                075&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc
+                080&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(assoc
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                076&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
+                081&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                077&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:qualifier
+                082&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:qualifier
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                078&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3)))
+                083&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3)))
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                079&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree)))
+                084&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree)))
                 </span><br/>
 <span class="covered" title="7 out of 7 forms covered">
-                080&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:PRIMARY-TAG&nbsp;{:language&nbsp;(second&nbsp;parse-tree)&nbsp;:qualifier&nbsp;&quot;*&quot;}
+                085&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:PRIMARY-TAG&nbsp;{:language&nbsp;(second&nbsp;parse-tree)&nbsp;:qualifier&nbsp;&quot;*&quot;}
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                081&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SUB-TAGS&nbsp;(if
+                086&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SUB-TAGS&nbsp;(if
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                082&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
+                087&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&gt;=&nbsp;(count&nbsp;parse-tree)&nbsp;3)
                 </span><br/>
 <span class="not-covered" title="0 out of 3 forms covered">
-                083&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str
+                088&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str
                 </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                084&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
+                089&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                085&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;-&quot;
+                090&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;-&quot;
                 </span><br/>
 <span class="not-covered" title="0 out of 5 forms covered">
-                086&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3)))
+                091&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(nth&nbsp;parse-tree&nbsp;3)))
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                087&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree)))
+                092&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages&nbsp;(second&nbsp;parse-tree)))
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                088&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SUB-TAG&nbsp;(second&nbsp;parse-tree)
+                093&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:SUB-TAG&nbsp;(second&nbsp;parse-tree)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                089&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Q-SEP&nbsp;nil
+                094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Q-SEP&nbsp;nil
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                090&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Q-VALUE&nbsp;(read-string&nbsp;(second&nbsp;parse-tree))
+                095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Q-VALUE&nbsp;(read-string&nbsp;(second&nbsp;parse-tree))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                091&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;default
+                096&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;default
                 </span><br/>
 <span class="not-covered" title="0 out of 2 forms covered">
-                092&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(do
+                097&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(do
                 </span><br/>
 <span class="not-covered" title="0 out of 16 forms covered">
-                093&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;&quot;Unable&nbsp;to&nbsp;parse&nbsp;header.&quot;)
+                098&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;&quot;Unable&nbsp;to&nbsp;parse&nbsp;header.&quot;)
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                095&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                096&nbsp;&nbsp;(defn&nbsp;acceptable-languages
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                097&nbsp;&nbsp;&nbsp;&nbsp;&quot;Generate&nbsp;an&nbsp;ordered&nbsp;list&nbsp;of&nbsp;acceptable&nbsp;languages,&nbsp;most-preferred&nbsp;first.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                098&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                099&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header.
+                099&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 100&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                101&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;maps&nbsp;as&nbsp;generated&nbsp;by&nbsp;`generate-accept-languages`,&nbsp;in&nbsp;descending&nbsp;order
+<span class="covered" title="1 out of 1 forms covered">
+                101&nbsp;&nbsp;(defn&nbsp;acceptable-languages
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                102&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;preference.&quot;
+                102&nbsp;&nbsp;&nbsp;&nbsp;&quot;Generate&nbsp;an&nbsp;ordered&nbsp;list&nbsp;of&nbsp;acceptable&nbsp;languages,&nbsp;most-preferred&nbsp;first.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                103&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                103&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
+                104&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                105&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                104&nbsp;&nbsp;&nbsp;&nbsp;[accept-language-header]
+                106&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;maps&nbsp;as&nbsp;generated&nbsp;by&nbsp;`generate-accept-languages`,&nbsp;in&nbsp;descending&nbsp;order
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                107&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;preference.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                108&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                109&nbsp;&nbsp;&nbsp;&nbsp;[accept-language-header]
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                105&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[parse-tree&nbsp;(parse-accept-language-header&nbsp;accept-language-header)]
+                110&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[parse-tree&nbsp;(parse-accept-language-header&nbsp;accept-language-header)]
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                106&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(vector?&nbsp;parse-tree)
+                111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;(vector?&nbsp;parse-tree)
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                107&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reverse
+                112&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reverse
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                108&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(sort-by
+                113&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(sort-by
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                109&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:preference
+                114&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:preference
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages
+                115&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(generate-accept-languages
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse-tree)))
+                116&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse-tree)))
                 </span><br/>
-<span class="covered" title="21 out of 21 forms covered">
-                112&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;&quot;Failed&nbsp;to&nbsp;parse&nbsp;Accept-Language&nbsp;header&nbsp;&#x27;&quot;&nbsp;accept-language-header&nbsp;&quot;&#x27;:\n&quot;&nbsp;(str&nbsp;parse-tree)))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                113&nbsp;&nbsp;
+<span class="not-covered" title="0 out of 21 forms covered">
+                117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;&quot;Failed&nbsp;to&nbsp;parse&nbsp;Accept-Language&nbsp;header&nbsp;&#x27;&quot;&nbsp;accept-language-header&nbsp;&quot;&#x27;:\n&quot;&nbsp;(str&nbsp;parse-tree)))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                114&nbsp;&nbsp;
+                118&nbsp;&nbsp;
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                119&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                115&nbsp;&nbsp;(defn&nbsp;slurp-resource
+                120&nbsp;&nbsp;(defn&nbsp;slurp-resource
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                116&nbsp;&nbsp;&nbsp;&nbsp;&quot;Slurp&nbsp;the&nbsp;resource&nbsp;of&nbsp;this&nbsp;name&nbsp;and&nbsp;return&nbsp;its&nbsp;contents&nbsp;as&nbsp;a&nbsp;string;&nbsp;but&nbsp;if&nbsp;it&nbsp;doesn&#x27;t
+                121&nbsp;&nbsp;&nbsp;&nbsp;&quot;Slurp&nbsp;the&nbsp;resource&nbsp;of&nbsp;this&nbsp;name&nbsp;and&nbsp;return&nbsp;its&nbsp;contents&nbsp;as&nbsp;a&nbsp;string;&nbsp;but&nbsp;if&nbsp;it&nbsp;doesn&#x27;t
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                117&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exist&nbsp;log&nbsp;the&nbsp;fact&nbsp;and&nbsp;return&nbsp;nil,&nbsp;rather&nbsp;than&nbsp;throwing&nbsp;an&nbsp;exception.&quot;
+                122&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exist&nbsp;log&nbsp;the&nbsp;fact&nbsp;and&nbsp;return&nbsp;nil,&nbsp;rather&nbsp;than&nbsp;throwing&nbsp;an&nbsp;exception.&quot;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                118&nbsp;&nbsp;&nbsp;&nbsp;[name]
+                123&nbsp;&nbsp;&nbsp;&nbsp;[name]
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                119&nbsp;&nbsp;&nbsp;&nbsp;(try
+                124&nbsp;&nbsp;&nbsp;&nbsp;(try
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(slurp&nbsp;(io&#x2F;resource&nbsp;name))
+                125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(slurp&nbsp;(io&#x2F;resource&nbsp;name))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                121&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;Exception&nbsp;_
+                126&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;Exception&nbsp;_
                 </span><br/>
 <span class="covered" title="20 out of 20 forms covered">
-                122&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;(str&nbsp;&quot;Resource&nbsp;at&nbsp;&quot;&nbsp;name&nbsp;&quot;&nbsp;does&nbsp;not&nbsp;exist.&quot;))
+                127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;warn&nbsp;(str&nbsp;&quot;Resource&nbsp;at&nbsp;&quot;&nbsp;name&nbsp;&quot;&nbsp;does&nbsp;not&nbsp;exist.&quot;))
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                123&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil)))
+                128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil)))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                124&nbsp;&nbsp;
+                129&nbsp;&nbsp;
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                125&nbsp;&nbsp;
+                130&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                126&nbsp;&nbsp;(defn&nbsp;find-language-file-name
+                131&nbsp;&nbsp;(defn&nbsp;find-language-file-name
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                127&nbsp;&nbsp;&nbsp;&nbsp;&quot;Find&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;messages&nbsp;file&nbsp;on&nbsp;this&nbsp;resource&nbsp;path&nbsp;which&nbsp;matches&nbsp;this&nbsp;`language-spec`.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                128&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                129&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`language-spec`&nbsp;should&nbsp;be&nbsp;either&nbsp;a&nbsp;map&nbsp;as&nbsp;generated&nbsp;by&nbsp;`generate-accept-languages`,&nbsp;or
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                130&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;a&nbsp;string;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                131&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which&nbsp;message&nbsp;files&nbsp;are&nbsp;stored,
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                132&nbsp;&nbsp;&nbsp;&nbsp;within&nbsp;the&nbsp;resources&nbsp;on&nbsp;the&nbsp;classpath.
+                132&nbsp;&nbsp;&nbsp;&nbsp;&quot;Find&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;messages&nbsp;file&nbsp;on&nbsp;this&nbsp;resource&nbsp;path&nbsp;which&nbsp;matches&nbsp;this&nbsp;`language-spec`.
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 133&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                134&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;an&nbsp;appropriate&nbsp;file&nbsp;if&nbsp;any&nbsp;is&nbsp;found,&nbsp;else&nbsp;nil.&quot;
+                134&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`language-spec`&nbsp;should&nbsp;be&nbsp;either&nbsp;a&nbsp;map&nbsp;as&nbsp;generated&nbsp;by&nbsp;`generate-accept-languages`,&nbsp;or
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                135&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
+                135&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;a&nbsp;string;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                136&nbsp;&nbsp;&nbsp;&nbsp;[language-spec&nbsp;resource-path]
+                136&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which&nbsp;message&nbsp;files&nbsp;are&nbsp;stored,
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                137&nbsp;&nbsp;&nbsp;&nbsp;within&nbsp;the&nbsp;resources&nbsp;on&nbsp;the&nbsp;classpath.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                138&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                139&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;an&nbsp;appropriate&nbsp;file&nbsp;if&nbsp;any&nbsp;is&nbsp;found,&nbsp;else&nbsp;nil.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                140&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                141&nbsp;&nbsp;&nbsp;&nbsp;[language-spec&nbsp;resource-path]
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                137&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[file-path&nbsp;(when
+                142&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[file-path&nbsp;(when
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                138&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string?&nbsp;language-spec)
+                143&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string?&nbsp;language-spec)
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                139&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(join
+                144&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(join
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.io.File&#x2F;separator
+                145&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.io.File&#x2F;separator
                 </span><br/>
 <span class="covered" title="6 out of 6 forms covered">
-                141&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[resource-path&nbsp;(str&nbsp;language-spec&nbsp;&quot;.edn&quot;)]))
+                146&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[resource-path&nbsp;(str&nbsp;language-spec&nbsp;&quot;.edn&quot;)]))
                 </span><br/>
 <span class="covered" title="6 out of 6 forms covered">
-                142&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contents&nbsp;(when&nbsp;file-path&nbsp;(slurp-resource&nbsp;file-path))]
+                147&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contents&nbsp;(when&nbsp;file-path&nbsp;(slurp-resource&nbsp;file-path))]
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                143&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
+                148&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(cond
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                144&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contents
+                149&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contents
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                145&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file-path
+                150&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file-path
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                146&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(map?&nbsp;language-spec)
+                151&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(map?&nbsp;language-spec)
                 </span><br/>
 <span class="covered" title="5 out of 5 forms covered">
-                147&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or
+                152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                148&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(find-language-file-name
+                153&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(find-language-file-name
                 </span><br/>
 <span class="covered" title="9 out of 9 forms covered">
-                149&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;(:language&nbsp;language-spec)&nbsp;&quot;-&quot;&nbsp;(:qualifier&nbsp;language-spec))
+                154&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;(:language&nbsp;language-spec)&nbsp;&quot;-&quot;&nbsp;(:qualifier&nbsp;language-spec))
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                150&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resource-path)
+                155&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resource-path)
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                151&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(find-language-file-name
+                156&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(find-language-file-name
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:language&nbsp;language-spec)
+                157&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(:language&nbsp;language-spec)
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                153&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resource-path)))))
+                158&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resource-path)))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                154&nbsp;&nbsp;
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                155&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                156&nbsp;&nbsp;(defn&nbsp;raw-get-messages
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                157&nbsp;&nbsp;&nbsp;&nbsp;&quot;Return&nbsp;the&nbsp;most&nbsp;acceptable&nbsp;messages&nbsp;collection&nbsp;we&nbsp;have&nbsp;given&nbsp;this&nbsp;`accept-language-header`.
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                158&nbsp;&nbsp;&nbsp;&nbsp;Do&nbsp;not&nbsp;use&nbsp;this&nbsp;function&nbsp;directly,&nbsp;use&nbsp;the&nbsp;memoized&nbsp;variant&nbsp;`get-messages`,&nbsp;as&nbsp;performance
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                159&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;very&nbsp;much&nbsp;better.
+                159&nbsp;&nbsp;
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
                 160&nbsp;&nbsp;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                161&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header;
+<span class="covered" title="1 out of 1 forms covered">
+                161&nbsp;&nbsp;(defn&nbsp;raw-get-messages
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                162&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;fully-qualified&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which
+                162&nbsp;&nbsp;&nbsp;&nbsp;&quot;Return&nbsp;the&nbsp;most&nbsp;acceptable&nbsp;messages&nbsp;collection&nbsp;we&nbsp;have&nbsp;given&nbsp;this&nbsp;`accept-language-header`.
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                163&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;files&nbsp;are&nbsp;stored;
+                163&nbsp;&nbsp;&nbsp;&nbsp;Do&nbsp;not&nbsp;use&nbsp;this&nbsp;function&nbsp;directly,&nbsp;use&nbsp;the&nbsp;memoized&nbsp;variant&nbsp;`get-messages`,&nbsp;as&nbsp;performance
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                164&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`default-locale`&nbsp;should&nbsp;be&nbsp;a&nbsp;locale&nbsp;specifier&nbsp;to&nbsp;use&nbsp;if&nbsp;no&nbsp;acceptable&nbsp;locale&nbsp;can&nbsp;be
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                165&nbsp;&nbsp;&nbsp;&nbsp;identified.
+                164&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;be&nbsp;very&nbsp;much&nbsp;better.
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                166&nbsp;&nbsp;
+                165&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                167&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;a&nbsp;map&nbsp;of&nbsp;message&nbsp;keys&nbsp;to&nbsp;strings;&nbsp;if&nbsp;no&nbsp;useable&nbsp;file&nbsp;is&nbsp;found,&nbsp;returns&nbsp;nil.&quot;
+                166&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                168&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
+                167&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;fully-qualified&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                169&nbsp;&nbsp;&nbsp;&nbsp;[^String&nbsp;accept-language-header&nbsp;^String&nbsp;resource-path&nbsp;^String&nbsp;default-locale]
+                168&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;files&nbsp;are&nbsp;stored;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                169&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`default-locale`&nbsp;should&nbsp;be&nbsp;a&nbsp;locale&nbsp;specifier&nbsp;to&nbsp;use&nbsp;if&nbsp;no&nbsp;acceptable&nbsp;locale&nbsp;can&nbsp;be
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                170&nbsp;&nbsp;&nbsp;&nbsp;identified.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                171&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                172&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;a&nbsp;map&nbsp;of&nbsp;message&nbsp;keys&nbsp;to&nbsp;strings;&nbsp;if&nbsp;no&nbsp;useable&nbsp;file&nbsp;is&nbsp;found,&nbsp;returns&nbsp;nil.&quot;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                173&nbsp;&nbsp;&nbsp;&nbsp;{:doc&#x2F;format&nbsp;:markdown}
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                174&nbsp;&nbsp;&nbsp;&nbsp;[^String&nbsp;accept-language-header&nbsp;^String&nbsp;resource-path&nbsp;^String&nbsp;default-locale]
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                170&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[file-path&nbsp;(first
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                171&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(remove
+                175&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[file-paths&nbsp;(remove
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                172&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil?
+                176&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;empty?
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                173&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(map
+                177&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(map
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                174&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#(find-language-file-name&nbsp;%&nbsp;resource-path)
+                178&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#(find-language-file-name&nbsp;%&nbsp;resource-path)
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                175&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(acceptable-languages&nbsp;accept-language-header))))]
+                179&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(acceptable-languages&nbsp;accept-language-header)))
                 </span><br/>
-<span class="covered" title="20 out of 20 forms covered">
-                176&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;debug&nbsp;(str&nbsp;&quot;Found&nbsp;i18n&nbsp;file&nbsp;at&nbsp;&#x27;&quot;&nbsp;file-path&nbsp;&quot;&#x27;&quot;))
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                177&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(try
+<span class="covered" title="3 out of 3 forms covered">
+                180&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default-path&nbsp;(join&nbsp;java.io.File&#x2F;separator
                 </span><br/>
 <span class="covered" title="2 out of 2 forms covered">
-                178&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(read-string
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                179&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(slurp-resource
-                </span><br/>
-<span class="covered" title="5 out of 5 forms covered">
-                180&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                181&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file-path
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                182&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(join&nbsp;java.io.File&#x2F;separator
-                </span><br/>
-<span class="covered" title="2 out of 2 forms covered">
-                183&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[resource-path
+                181&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[resource-path
                 </span><br/>
 <span class="covered" title="4 out of 4 forms covered">
-                184&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;default-locale&nbsp;&quot;.edn&quot;)]))))
+                182&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(str&nbsp;default-locale&nbsp;&quot;.edn&quot;)])
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                185&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;Exception&nbsp;any
+<span class="covered" title="6 out of 6 forms covered">
+                183&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paths&nbsp;(concat&nbsp;file-paths&nbsp;(list&nbsp;default-path))
                 </span><br/>
-<span class="covered" title="19 out of 19 forms covered">
-                186&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;(str&nbsp;&quot;Failed&nbsp;to&nbsp;load&nbsp;internationalisation&nbsp;because&nbsp;&quot;&nbsp;(.getMessage&nbsp;any)))
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                187&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil))))
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                188&nbsp;&nbsp;
-                </span><br/>
-<span class="covered" title="1 out of 1 forms covered">
-                189&nbsp;&nbsp;(def&nbsp;get-messages
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                190&nbsp;&nbsp;&nbsp;&nbsp;&quot;Return&nbsp;the&nbsp;most&nbsp;acceptable&nbsp;messages&nbsp;collection&nbsp;we&nbsp;have&nbsp;given&nbsp;this&nbsp;`accept-language-header`
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                191&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                192&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                193&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;fully-qualified&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                194&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;files&nbsp;are&nbsp;stored;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                195&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`default-locale`&nbsp;should&nbsp;be&nbsp;a&nbsp;locale&nbsp;specifier&nbsp;to&nbsp;use&nbsp;if&nbsp;no&nbsp;acceptable&nbsp;locale&nbsp;can&nbsp;be
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                196&nbsp;&nbsp;&nbsp;&nbsp;identified.
-                </span><br/>
-<span class="blank" title="0 out of 0 forms covered">
-                197&nbsp;&nbsp;
-                </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                198&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;a&nbsp;map&nbsp;of&nbsp;message&nbsp;keys&nbsp;to&nbsp;strings.;&nbsp;if&nbsp;no&nbsp;useable&nbsp;file&nbsp;is&nbsp;found,&nbsp;returns&nbsp;nil.&quot;
+<span class="covered" title="2 out of 2 forms covered">
+                184&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;(first&nbsp;
                 </span><br/>
 <span class="covered" title="3 out of 3 forms covered">
-                199&nbsp;&nbsp;&nbsp;&nbsp;(memoize&nbsp;raw-get-messages))
+                185&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(remove&nbsp;empty?
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                186&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(map
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                187&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slurp-resource
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                188&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paths)))]
+                </span><br/>
+<span class="covered" title="2 out of 2 forms covered">
+                189&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;text
+                </span><br/>
+<span class="partial" title="1 out of 2 forms covered">
+                190&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(try
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                191&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(read-string&nbsp;text)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(catch&nbsp;Exception&nbsp;any
+                </span><br/>
+<span class="not-covered" title="0 out of 16 forms covered">
+                193&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;&nbsp;&quot;Failed&nbsp;to&nbsp;load&nbsp;internationalisation&nbsp;because&nbsp;&quot;
+                </span><br/>
+<span class="not-covered" title="0 out of 2 forms covered">
+                194&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.getName&nbsp;(.getClass&nbsp;any))
+                </span><br/>
+<span class="not-covered" title="0 out of 1 forms covered">
+                195&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(.getMessage&nbsp;any))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                196&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                197&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;else
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                198&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(doall
+                </span><br/>
+<span class="covered" title="17 out of 17 forms covered">
+                199&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(timbre&#x2F;error&nbsp;&quot;No&nbsp;valid&nbsp;i18n&nbsp;files&nbsp;found,&nbsp;not&nbsp;even&nbsp;default.&nbsp;Tried&quot;&nbsp;paths)
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                200&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nil))))
                 </span><br/>
 <span class="blank" title="0 out of 0 forms covered">
-                200&nbsp;&nbsp;
+                201&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                201&nbsp;&nbsp;(def&nbsp;get-message
+                202&nbsp;&nbsp;(def&nbsp;get-messages
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                202&nbsp;&nbsp;&nbsp;&nbsp;&quot;Return&nbsp;the&nbsp;message&nbsp;keyed&nbsp;by&nbsp;this&nbsp;`token`&nbsp;from&nbsp;the&nbsp;most&nbsp;acceptable&nbsp;messages&nbsp;collection&nbsp;&nbsp;
+                203&nbsp;&nbsp;&nbsp;&nbsp;&quot;Return&nbsp;the&nbsp;most&nbsp;acceptable&nbsp;messages&nbsp;collection&nbsp;we&nbsp;have&nbsp;given&nbsp;this&nbsp;`accept-language-header`
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                204&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                203&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;we&nbsp;have&nbsp;given&nbsp;this&nbsp;`accept-language-header`.
+                205&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                204&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                206&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;fully-qualified&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                205&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`token`&nbsp;should&nbsp;be&nbsp;a&nbsp;clojure&nbsp;keyword&nbsp;identifying&nbsp;the&nbsp;message&nbsp;to&nbsp;be&nbsp;retrieved;
+                207&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;files&nbsp;are&nbsp;stored;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                206&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header;
+                208&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`default-locale`&nbsp;should&nbsp;be&nbsp;a&nbsp;locale&nbsp;specifier&nbsp;to&nbsp;use&nbsp;if&nbsp;no&nbsp;acceptable&nbsp;locale&nbsp;can&nbsp;be
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                207&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;fully-qualified&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which
+                209&nbsp;&nbsp;&nbsp;&nbsp;identified.
+                </span><br/>
+<span class="blank" title="0 out of 0 forms covered">
+                210&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                208&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;files&nbsp;are&nbsp;stored;
+                211&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;a&nbsp;map&nbsp;of&nbsp;message&nbsp;keys&nbsp;to&nbsp;strings.;&nbsp;if&nbsp;no&nbsp;useable&nbsp;file&nbsp;is&nbsp;found,&nbsp;returns&nbsp;nil.&quot;
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                209&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`default-locale`&nbsp;should&nbsp;be&nbsp;a&nbsp;locale&nbsp;specifier&nbsp;to&nbsp;use&nbsp;if&nbsp;no&nbsp;acceptable&nbsp;locale&nbsp;can&nbsp;be
+<span class="covered" title="3 out of 3 forms covered">
+                212&nbsp;&nbsp;&nbsp;&nbsp;(memoize&nbsp;raw-get-messages))
                 </span><br/>
-<span class="not-tracked" title="0 out of 0 forms covered">
-                210&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identified.&quot;
+<span class="blank" title="0 out of 0 forms covered">
+                213&nbsp;&nbsp;
                 </span><br/>
 <span class="covered" title="1 out of 1 forms covered">
-                211&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;([^Keyword&nbsp;token&nbsp;^String&nbsp;accept-language-header&nbsp;^String&nbsp;resource-path&nbsp;^String&nbsp;default-locale]
-                </span><br/>
-<span class="covered" title="7 out of 7 forms covered">
-                212&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((get-messages&nbsp;accept-language-header&nbsp;resource-path&nbsp;default-locale)&nbsp;token))
+                214&nbsp;&nbsp;(def&nbsp;get-message
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                213&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([^Keyword&nbsp;token&nbsp;^String&nbsp;accept-language-header]
-                </span><br/>
-<span class="covered" title="6 out of 6 forms covered">
-                214&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(get-message&nbsp;token&nbsp;accept-language-header&nbsp;*resource-path*&nbsp;*default-language*))
+                215&nbsp;&nbsp;&nbsp;&nbsp;&quot;Return&nbsp;the&nbsp;message&nbsp;keyed&nbsp;by&nbsp;this&nbsp;`token`&nbsp;from&nbsp;the&nbsp;most&nbsp;acceptable&nbsp;messages&nbsp;collection&nbsp;&nbsp;
                 </span><br/>
 <span class="not-tracked" title="0 out of 0 forms covered">
-                215&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([^Keyword&nbsp;token]
+                216&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;we&nbsp;have&nbsp;given&nbsp;this&nbsp;`accept-language-header`,&nbsp;if&nbsp;passed,&nbsp;or&nbsp;the&nbsp;current&nbsp;default&nbsp;language&nbsp;
                 </span><br/>
-<span class="covered" title="6 out of 6 forms covered">
-                216&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(get-message&nbsp;token&nbsp;nil&nbsp;*resource-path*&nbsp;*default-language*))))
+<span class="not-tracked" title="0 out of 0 forms covered">
+                217&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;otherwise.&nbsp;If&nbsp;no&nbsp;message&nbsp;is&nbsp;found,&nbsp;return&nbsp;the&nbsp;token.
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                218&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                219&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`token`&nbsp;should&nbsp;be&nbsp;a&nbsp;clojure&nbsp;keyword&nbsp;identifying&nbsp;the&nbsp;message&nbsp;to&nbsp;be&nbsp;retrieved;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                220&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`accept-language-header`&nbsp;should&nbsp;be&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;RFC2616&nbsp;`Accept-Language`&nbsp;header;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                221&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`resource-path`&nbsp;should&nbsp;be&nbsp;the&nbsp;fully-qualified&nbsp;path&nbsp;name&nbsp;of&nbsp;the&nbsp;directory&nbsp;in&nbsp;which
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                222&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;files&nbsp;are&nbsp;stored;
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                223&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;`default-locale`&nbsp;should&nbsp;be&nbsp;a&nbsp;locale&nbsp;specifier&nbsp;to&nbsp;use&nbsp;if&nbsp;no&nbsp;acceptable&nbsp;locale&nbsp;can&nbsp;be
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                224&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identified.&quot;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                225&nbsp;&nbsp;&nbsp;&nbsp;(fn&nbsp;([^Keyword&nbsp;token&nbsp;^String&nbsp;accept-language-header&nbsp;^String&nbsp;resource-path&nbsp;^String&nbsp;default-locale]
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                226&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(let&nbsp;[message&nbsp;(token&nbsp;(get-messages&nbsp;accept-language-header&nbsp;resource-path&nbsp;default-locale))]
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                227&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or&nbsp;message&nbsp;(name&nbsp;token))))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                228&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([^Keyword&nbsp;token&nbsp;^String&nbsp;accept-language-header]
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                229&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(get-message&nbsp;token&nbsp;
+                </span><br/>
+<span class="covered" title="1 out of 1 forms covered">
+                230&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accept-language-header&nbsp;
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                231&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or&nbsp;(:resource-path&nbsp;*config*)&nbsp;*resource-path*)&nbsp;
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                232&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or&nbsp;(:default-language&nbsp;*config*)&nbsp;*default-language*)))
+                </span><br/>
+<span class="not-tracked" title="0 out of 0 forms covered">
+                233&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([^Keyword&nbsp;token]
+                </span><br/>
+<span class="covered" title="3 out of 3 forms covered">
+                234&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(get-message&nbsp;token&nbsp;
+                </span><br/>
+<span class="covered" title="8 out of 8 forms covered">
+                235&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(or&nbsp;(:default-language&nbsp;*config*)&nbsp;*default-language*)))))
                 </span><br/>
  </body>
 </html>
