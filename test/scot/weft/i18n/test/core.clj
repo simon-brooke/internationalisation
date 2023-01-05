@@ -1,7 +1,8 @@
 (ns ^{:doc "Tests for Internationalisation."
       :author "Simon Brooke"} scot.weft.i18n.test.core
   (:require [clojure.test :refer [deftest is testing]]
-            [scot.weft.i18n.core :refer [*default-language*
+            [scot.weft.i18n.core :refer [*config*
+                                         *default-language*
                                          acceptable-languages
                                          generate-accept-languages
                                          get-message
@@ -206,7 +207,7 @@
   (testing "Top level functionality"
     (is
      (=
-      "This is not a pipe"
+      "This is not a pipe."
       (:pipe (get-messages "en-GB, fr-FR;q=0.9" "i18n" "en-GB"))))
     (is
      (=
@@ -215,9 +216,25 @@
     (is
      (= nil (get-messages "xx-XX;q=0.5, yy-YY" "i18n" "zz-ZZ"))
      "If no usable file is found, an exception should not be thrown.")
-    (binding [*default-language* "en-GB"]
-      (is (= "This is not a pipe" (get-message :pipe)))
+    (binding [*config* (assoc *config* :default-language "fr-FR")]
+      (is (= "Ceci n'est pas une pipe." (get-message :pipe)))
       (is
        (=
-        "Ceci n'est pas une pipe." (get-message :pipe "en-GB;q=0.9, fr-FR")))
-      (is (= "это не труба." (get-message :pipe "de-DE" "i18n" "ru"))))))
+        "This is not a pipe." (get-message :pipe "en-GB, fr-FR;q=0.9")))
+      (is (= "это не труба." (get-message :pipe "de-DE" "i18n" "ru")))
+      (is (= "froboz" (get-message :froboz)))))
+  (testing "Final fall through if no suitable language found"
+    (binding [*config* (assoc *config* :default-language "de-DE")]
+      ;; there is no 'de-DE' language resource in the resources, 
+      ;; and that's exactly why we've chosen it for this test.
+      (is (= "pipe" (get-message :pipe)))))
+  (testing "Deprecated variables still work"
+    (binding [*config* nil
+              *default-language* "en-GB"]
+      (is (= "This is not a pipe." (get-message :pipe)))
+      (is
+       (= "Ceci n'est pas une pipe."
+          (get-message :pipe "en-GB;q=0.9, fr-FR"))))
+    (binding [*config* nil
+              *default-language* "ru"]
+      (is (= "это не труба." (get-message :pipe))))))

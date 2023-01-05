@@ -22,12 +22,17 @@
 
 (def ^:dynamic *resource-path*
   "The default path within the resources space on which translation files 
-   will be sought."
+   will be sought. Deprecated, prefer `(:resource-path *config*)`."
   "i18n")
 
 (def ^:dynamic *default-language*
-  "The default language to seek."
+  "The default language to seek. Deprecated, prefer `(:default-language *config*)`."
   (-> (locale/get-default) locale/to-language-tag))
+
+(def ^:dynamic *config*
+  "Extensible configuration for i18n."
+  {:default-language (-> (locale/get-default) locale/to-language-tag)
+   :resource-path "i18n"})
 
 (def accept-language-grammar
   "Grammar for `Accept-Language` headers"
@@ -119,7 +124,7 @@
   (try
     (slurp (io/resource name))
     (catch Exception _
-      (timbre/error (str "Resource at " name " does not exist."))
+      (timbre/warn (str "Resource at " name " does not exist."))
       nil)))
 
 
@@ -167,23 +172,31 @@
   Returns a map of message keys to strings; if no useable file is found, returns nil."
   {:doc/format :markdown}
   [^String accept-language-header ^String resource-path ^String default-locale]
-  (let [file-path (first
-                   (remove
-                    nil?
+  (let [file-paths (remove
+                    empty?
                     (map
                      #(find-language-file-name % resource-path)
-                     (acceptable-languages accept-language-header))))]
-    (timbre/debug (str "Found i18n file at '" file-path "'"))
-    (try
-      (read-string
-       (slurp-resource
-        (or
-         file-path
-         (join java.io.File/separator
+                     (acceptable-languages accept-language-header)))
+        default-path (join java.io.File/separator
                [resource-path
-                (str default-locale ".edn")]))))
-      (catch Exception any
-        (timbre/error (str "Failed to load internationalisation because " (.getMessage any)))
+                (str default-locale ".edn")])
+        paths (concat file-paths (list default-path))
+        text (first 
+              (remove empty?
+                     (map
+                      slurp-resource
+                      paths)))]
+    (if text
+      (try
+        (read-string text)
+        (catch Exception any
+          (timbre/error  "Failed to load internationalisation because "
+                         (.getName (.getClass any))
+                         (.getMessage any))
+          nil))
+      ;; else
+      (doall
+        (timbre/error "No valid i18n files found, not even default. Tried" paths)
         nil))))
 
 (def get-messages
@@ -200,7 +213,8 @@
 
 (def get-message
   "Return the message keyed by this `token` from the most acceptable messages collection  
-   we have given this `accept-language-header`.
+   we have given this `accept-language-header`, if passed, or the current default language 
+   otherwise. If no message is found, return the token.
    
    * `token` should be a clojure keyword identifying the message to be retrieved;
    * `accept-language-header` should be the value of an RFC2616 `Accept-Language` header;
@@ -209,8 +223,13 @@
    * `default-locale` should be a locale specifier to use if no acceptable locale can be
      identified."
   (fn ([^Keyword token ^String accept-language-header ^String resource-path ^String default-locale]
-       ((get-messages accept-language-header resource-path default-locale) token))
+       (let [message (token (get-messages accept-language-header resource-path default-locale))]
+         (or message (name token))))
     ([^Keyword token ^String accept-language-header]
-     (get-message token accept-language-header *resource-path* *default-language*))
+     (get-message token 
+                  accept-language-header 
+                  (or (:resource-path *config*) *resource-path*) 
+                  (or (:default-language *config*) *default-language*)))
     ([^Keyword token]
-     (get-message token nil *resource-path* *default-language*))))
+     (get-message token 
+                  (or (:default-language *config*) *default-language*)))))
