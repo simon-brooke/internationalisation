@@ -1,4 +1,4 @@
-(defproject org.clojars.simon_brooke/internationalisation "1.0.5-SNAPSHOT"
+(defproject org.clojars.simon_brooke/internationalisation "1.0.5"
   :cloverage {:output "docs/cloverage"
               :codecov? true
               :emma-xml? true}
