@@ -22,12 +22,17 @@
 
 (def ^:dynamic *resource-path*
   "The default path within the resources space on which translation files 
-   will be sought."
+   will be sought. Deprecated, prefer `(:resource-path *config*)`."
   "i18n")
 
 (def ^:dynamic *default-language*
-  "The default language to seek."
+  "The default language to seek. Deprecated, prefer `(:default-language *config*)`."
   (-> (locale/get-default) locale/to-language-tag))
+
+(def ^:dynamic *config*
+  "Extensible configuration for i18n."
+  {:default-language (-> (locale/get-default) locale/to-language-tag)
+   :resource-path "i18n"})
 
 (def accept-language-grammar
   "Grammar for `Accept-Language` headers"
@@ -218,9 +223,13 @@
    * `default-locale` should be a locale specifier to use if no acceptable locale can be
      identified."
   (fn ([^Keyword token ^String accept-language-header ^String resource-path ^String default-locale]
-       (let [message ((get-messages accept-language-header resource-path default-locale) token)]
+       (let [message (token (get-messages accept-language-header resource-path default-locale))]
          (or message (name token))))
     ([^Keyword token ^String accept-language-header]
-     (get-message token accept-language-header *resource-path* *default-language*))
+     (get-message token 
+                  accept-language-header 
+                  (or (:resource-path *config*) *resource-path*) 
+                  (or (:default-language *config*) *default-language*)))
     ([^Keyword token]
-     (get-message token *default-language* *resource-path* *default-language*))))
+     (get-message token 
+                  (or (:default-language *config*) *default-language*)))))
